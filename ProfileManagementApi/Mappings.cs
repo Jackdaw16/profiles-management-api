@@ -8,8 +8,8 @@ namespace ProfileManagementApi
     {
         public Mappings()
         {
-            CreateMap<Profile, ProfileResponse>();
-            CreateMap<Profile, ProfileCreate>();
+            CreateMap<Profiles, ProfileResponse>();
+            CreateMap<Profiles, ProfileCreate>();
             CreateMap<ProfileCreate, Profiles>();
         }
     }

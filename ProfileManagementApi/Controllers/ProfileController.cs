@@ -73,14 +73,50 @@ namespace ProfileManagementApi.Controllers
 
                 _context.Add(profileMapped);
                 await _context.SaveChangesAsync();
+
+                var response = _mapper.Map<ProfileResponse>(profileMapped);
                 
-                return new CreatedAtRouteResult("GetSingleProfile", new {id = profileMapped.Id});
+                return new CreatedAtRouteResult("GetSingleProfile", new {id = profileMapped.Id}, response);
             }
             catch (Exception e)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
             
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult> Put([FromForm] ProfileCreate profileCreate, int id)
+        {
+            try
+            {
+                var entity = _mapper.Map<Profiles>(profileCreate);
+                entity.Id = id;
+                entity.UpdatedAt = DateTime.Now;
+
+                _context.Entry(entity).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+
+                return NoContent();
+                
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            var profile = await _context.Profiles.FirstOrDefaultAsync(p => p.Id == id);
+            if (profile == null)
+                return NotFound();
+
+            _context.Profiles.Remove(profile);
+            await _context.SaveChangesAsync();
+
+            return Ok();
         }
     }
 }
