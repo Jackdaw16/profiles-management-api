@@ -11,5 +11,6 @@ namespace ProfileManagementApi.DBContext
         }
 
         public DbSet<Profiles> Profiles { get; set; }
+        public DbSet<Projects> Projects { get; set; }
     }
 }

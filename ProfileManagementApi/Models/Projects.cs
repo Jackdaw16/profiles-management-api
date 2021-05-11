@@ -1,16 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace ProfileManagementApi.Models
 {
-    public class Profiles
+    public class Projects
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public string ProfilePhoto { get; set; }
-        public DateTime CreatedAt{ get; set; }
+        public string ProjectPhoto { get; set; }
+        public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
-        public List<Projects> Type { get; set; }
+        public int ProfilesId { get; set; }
+        public Profiles Profiles { get; set; }
     }
 }
